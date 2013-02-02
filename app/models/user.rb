@@ -1,0 +1,101 @@
+# User is a model for an owner of this blog and we assume there is only 1 user.
+# The responsibility to attach Settings.github.entries_path belongs to User class.
+class User < ActiveRecord::Base
+  attr_accessible :nickname, :provider, :token, :uid
+
+  validates :nickname, :provider, :uid, :token, :presence => true
+  validates :uid, :presence => true, :uniqueness => { :scope => :provider }
+
+  delegate :entries_path, :repository, :to => "Settings.github"
+
+  scope :alphabetical, lambda { order("nickname DESC") }
+
+  class << self
+    def admin
+      User.find_by_nickname(Settings.github.nickname)
+    end
+
+    def find_or_create_from_auth(auth)
+      find_from_auth(auth) || create_from_auth(auth)
+    end
+
+    private
+
+    def find_from_auth(auth)
+      attributes = auth.slice("provider", "uid")
+      where(attributes).first
+    end
+
+    def create_from_auth(auth)
+      create(
+        :nickname => auth["info"]["nickname"],
+        :provider => auth["provider"],
+        :token    => auth["credentials"]["token"],
+        :uid      => auth["uid"],
+      ).tap(&:create_repository)
+    end
+
+    # Meta utility method to cache method's returned value
+    # For instance: returned value of #entries will be cached in 1.day with "entries" as cache key
+    #  cache_method(:entries, 1.day) { "entries" }
+    def cache_method(method_name, expires_in, &cache_key)
+      define_method("#{method_name}_with_cache") do |*args|
+        Rails.cache.fetch cache_key.call(self, *args), :expires_in => expires_in do
+          __send__("#{method_name}_without_cache", *args)
+        end
+      end
+      alias_method_chain method_name, :cache #unless Rails.env.development?
+    end
+  end
+
+  def commit(entry)
+    github_client.update("#{entries_path}/#{entry.filename}", entry.content)
+  end
+
+  def entries
+    list = github_client.list(entries_path)
+    list.map {|attributes| Entry.new(attributes) }
+  end
+
+  def entry(entry_name)
+    if attributes = github_client.find("#{entries_path}/#{entry_name}")
+      Entry.new(attributes)
+    end
+  end
+
+  def create_entry(attributes)
+    entry = Entry.new_with_name(attributes)
+    commit(entry)
+    entry.persisted!
+    entry
+  end
+
+  def update_entry(attributes)
+    create_entry(attributes)
+  end
+
+  def destroy_entry(entry_name)
+    github_client.delete("#{entries_path}/#{entry_name}")
+  end
+
+  def create_repository
+    github_client.fork("r7kamura", repository)
+  end
+
+  def to_param
+    nickname
+  end
+
+  private
+
+  def github_client
+    @github_client ||= GithubClient.new(
+      :nickname     => nickname,
+      :repository   => repository,
+      :token        => token
+    )
+  end
+
+  cache_method(:entries, 1.day) {|user| "#{user.nickname}/entries" }
+  cache_method(:entry, 1.day) {|user, filename| "#{user.nickname}/#{filename}" }
+end

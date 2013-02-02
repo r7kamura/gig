@@ -1,0 +1,35 @@
+html {
+  background: url("/assets/background.png")
+}
+
+body {
+  width: 920px;
+  margin: 0px auto;
+  padding: 20px;
+  line-height: 1.7;
+}
+
+header {
+  margin-bottom: 100px;
+  overflow: hidden;
+  font-size: 2em;
+
+  .title {
+    float: left;
+  }
+
+  .links {
+    float: right;
+    .link {
+      display: inline-block;
+      margin-left: 1em;
+    }
+  }
+}
+
+footer {
+  margin-top: 100px;
+  margin-bottom: 50px;
+  text-align: center;
+  color: #333;
+}

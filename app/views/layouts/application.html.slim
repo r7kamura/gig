@@ -1,0 +1,34 @@
+doctype html
+html
+  head
+    title GIG
+    = stylesheet_link_tag "application", :media => "all"
+    = favicon_link_tag "favicon.ico"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+
+  body class=current_action_classes
+    header
+      h1.title
+        - if @user
+          = link_to @user do
+            i.icon-book
+            = @user.nickname
+        - else
+          = link_to root_path do
+            i.icon-github
+            | GIG
+      ul.links
+        - if logged_in?
+          li.link= link_to_with_icon "pencil", new_user_entry_path(current_user), :title => "New", "data-placement" => "bottom"
+          li.link= link_to_with_icon "signout", logout_path, :method => :delete, :title => "Logout", "data-placement" => "bottom"
+        - else
+          li.link= link_to_with_icon "signin", login_path, :title => "Login", "data-placement" => "bottom"
+
+
+    .main
+      = yield
+
+    footer
+      p
+        = link_to "✘╹◡╹✘", "https://github.com/r7kamura/gig", :target => "_blank", :title => "GIG is an open sourced project"

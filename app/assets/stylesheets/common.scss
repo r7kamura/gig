@@ -1,0 +1,37 @@
+@import url(http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:400,700);
+
+a {
+  color: inherit;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+i[class^="icon-"],
+i[class*=" icon-"] {
+  width: inherit;
+  height: inherit;
+  margin-top: inherit;
+  margin-right: .2em;
+  line-height: inherit;
+  vertical-align: inherit;
+}
+
+button {
+  i[class^="icon-"],
+  i[class*=" icon-"] {
+    margin-right: 0;
+  }
+}
+
+input[type="text"],
+textarea {
+  width: 100%;
+  height: inherit;
+  box-sizing: border-box;
+}

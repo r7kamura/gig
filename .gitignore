@@ -1,0 +1,7 @@
+/.bundle
+/db/*.sqlite3
+/log/*.log
+/tmp
+.env
+coverage/
+public/assets/

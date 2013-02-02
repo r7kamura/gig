@@ -1,0 +1,66 @@
+.users_controller {
+  &.index_action {
+    .main {
+      .section {
+        margin-bottom: 3em;
+      }
+
+      .caption {
+        text-align: center;
+
+        h1 {
+          font-size: 15em;
+          line-height: 0.9;
+        }
+
+        h2 {
+          font-weight: bold;
+          font-family: 'Yanone Kaffeesatz', sans-serif;
+        }
+      }
+
+      i {
+        font-size: 1.5em;
+      }
+
+      .btn {
+        margin-top: 10px;
+      }
+
+      ul {
+        padding-left: 1.5em;
+        list-style: disc;
+
+        li {
+          line-height: 1.7;
+        }
+      }
+
+      .span3 p {
+        font-size: .8em;
+      }
+    }
+  }
+
+  &.show_action {
+    .entry {
+      border-bottom: 1px solid #666;
+      padding: 0 .5em;
+      overflow: hidden;
+      line-height: 2.5;
+      font-size: 1.4em;
+
+      i {
+        padding-right: .4em;
+      }
+
+      .title {
+        float: left;
+      }
+
+      .date {
+        float: right;
+      }
+    }
+  }
+}

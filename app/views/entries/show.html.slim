@@ -1,0 +1,16 @@
+- entry = decorate(@entry)
+
+- if logged_in?
+  .buttons
+    = link_to_with_icon "pencil", entry.edit_path, :class => "btn", :title => "Edit"
+    = link_to_with_icon "trash", [@user, entry], :method => :delete, :class => "btn", :confirm => "Are you sure to delete this entry?", :title => "Delete"
+    = link_to_with_icon "github", entry.github_path, :class => "btn", :target => "_blank", :title => "GitHub"
+
+article
+  .header
+    h1.title= entry.title
+    .date
+      i.icon-calendar
+      = entry.date
+
+  .content= entry.rendered_content

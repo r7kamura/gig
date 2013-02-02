@@ -1,0 +1,82 @@
+.entries_controller {
+  &.show_action {
+    article {
+      border-radius: 5px;
+      padding: 3em 2em;
+      background: white;
+
+      .title {
+        font-size: 3em;
+        line-height: 1.5;
+      }
+
+      .header {
+        margin-bottom: 40px;
+      }
+
+      .date {
+        margin-left: .35em;
+      }
+
+      i {
+        margin-right: .4em;
+      }
+
+      .content {
+        margin-bottom: 50px;
+        line-height: 1.7;
+
+        h1,
+        h2,
+        h3 {
+          margin-top: 1em;
+        }
+
+        h1 {
+          font-size: 2em;
+          line-height: 1.8;
+        }
+
+        h2 {
+          font-size: 1.5em;
+        }
+
+        h3 {
+          font-size: 1em;
+          line-height: 1.5;
+        }
+
+        pre {
+          border: solid 1px #ccc;
+          margin: .5em 0 1em;
+          padding: 1em;
+          font-size: .75em;
+          line-height: 1.3;
+          background: #fafafa;
+        }
+
+        ul {
+          margin-top: .5em;
+          margin-left: 1.2em;
+          list-style: disc;
+        }
+      }
+    }
+
+    .buttons{
+      margin-bottom: 1em;
+
+      .btn {
+        margin-right: 1em;
+      }
+    }
+  }
+
+  &.edit_action {
+    .main {
+      .back {
+        margin-bottom: 1em;
+      }
+    }
+  }
+}

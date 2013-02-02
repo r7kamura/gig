@@ -1,0 +1,18 @@
+- entry = decorate(@entry)
+
+- if entry.persisted?
+  p.back
+    = link_to [@user, entry] do
+      i.icon-double-angle-left
+      | back
+
+= form_for([@user, entry]) do |f|
+  .name
+    = f.text_field :name, :placeholder => "title"
+
+  .content
+    = f.text_area :content, :placeholder => "body"
+
+  .submit
+    button.btn type="submit" title="OK" data-placement="bottom"
+      i.icon-ok

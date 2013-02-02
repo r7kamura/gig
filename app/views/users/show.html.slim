@@ -1,0 +1,8 @@
+ul.entries
+  - @user.entries.each do |entry|
+    li.entry
+      = link_to [@user, entry] do
+        .title
+          i.icon-file-alt
+          = entry.title
+        .date= entry.date

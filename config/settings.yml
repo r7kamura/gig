@@ -1,0 +1,21 @@
+defaults: &defaults
+  github:
+    repository:    <%= ENV["GITHUB_REPOSITORY"] || "gigdb" %>
+    entries_path:  <%= ENV["GITHUB_ENTRIES_PATH"] || "entries" %>
+    nickname:      <%= ENV["GITHUB_NICKNAME"] %>
+    client_id:     <%= ENV["GITHUB_CLIENT_ID"] %>
+    client_secret: <%= ENV["GITHUB_CLIENT_SECRET"] %>
+
+development:
+  <<: *defaults
+
+production:
+  <<: *defaults
+
+test:
+  github:
+    repository: "gigdb"
+    entries_path: "entries"
+    nickname: "test"
+    client_id: ""
+    client_secret: ""
