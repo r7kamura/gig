@@ -6,14 +6,15 @@ class CachesController < ApplicationController
 
     nickname = payload["repository"]["owner"]["name"]
     commits  = payload["commits"]
+    user     = User.find_by_nickname!(nickname)
     paths    = commits.map {|commit| commit.values_at("added", "modified", "removed") }.flatten
     paths.each do |path|
       Rails.cache.delete("#{nickname}/#{path}")
-      author.entry(File.basename(path))
+      user.entry(File.basename(path))
     end
     if paths.any?
       Rails.cache.delete("#{nickname}/entries")
-      author.entries
+      user.entries
     end
 
     head 200
