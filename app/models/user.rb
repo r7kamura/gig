@@ -104,6 +104,6 @@ class User < ActiveRecord::Base
     )
   end
 
-  cache_method(:entries, 1.day) {|user| "#{user.nickname}/#{Settings.github.entries_path}" }
+  # cache_method(:entries, 1.day) {|user| "#{user.nickname}/#{Settings.github.entries_path}" }
   cache_method(:entry, 1.day) {|user, filename| "#{user.nickname}/#{Settings.github.entries_path}/#{filename}" }
 end
