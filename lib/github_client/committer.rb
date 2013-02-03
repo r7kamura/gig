@@ -18,11 +18,6 @@ class GithubClient
       update_master_reference(new_commit_sha)
     end
 
-    def fork(owner, repo, name = nil)
-      github.repos.forks.create(owner, repo)
-      github.repos.edit(nickname, repo, :name => name) if name
-    end
-
     private
 
     def create_tree(options)

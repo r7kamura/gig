@@ -5,6 +5,7 @@ defaults: &defaults
     nickname:      <%= ENV["GITHUB_NICKNAME"] %>
     client_id:     <%= ENV["GITHUB_CLIENT_ID"] %>
     client_secret: <%= ENV["GITHUB_CLIENT_SECRET"] %>
+    hook_url:      <%= ENV["GITHUB_HOOK_URL"] %>
 
 development:
   <<: *defaults
@@ -19,3 +20,4 @@ test:
     nickname: "test"
     client_id: ""
     client_secret: ""
+    hook_url: "http://example.com/cache"
