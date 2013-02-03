@@ -23,11 +23,16 @@ describe CachesController do
       JSON.unparse(
         "commits" => [
           {
-            "added"    => ["#{Settings.github.entries_path}/added_path"],
-            "modified" => ["#{Settings.github.entries_path}/modified_path"],
-            "removed"  => ["#{Settings.github.entries_path}/removed_path"],
+            "added"    => ["test/#{Settings.github.entries_path}/added_path"],
+            "modified" => ["test/#{Settings.github.entries_path}/modified_path"],
+            "removed"  => ["test/#{Settings.github.entries_path}/removed_path"],
           }
-        ]
+        ],
+        "repository" => {
+          "owner" => {
+            "name" => "test",
+          },
+        },
       )
     end
 
