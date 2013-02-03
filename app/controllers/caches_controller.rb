@@ -9,13 +9,11 @@ class CachesController < ApplicationController
     user     = User.find_by_nickname!(nickname)
     paths    = commits.map {|commit| commit.values_at("added", "modified", "removed") }.flatten
     paths.each do |path|
-      Rails.cache.delete("#{nickname}/#{path}")
-      user.entry(File.basename(path))
+      filename = File.basename(path)
+      user.clear_cache(filename)
+      user.entry(filename)
     end
-    if paths.any?
-      Rails.cache.delete("#{nickname}/entries")
-      user.entries
-    end
+    user.entries if paths.any?
 
     head 200
   end

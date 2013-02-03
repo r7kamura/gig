@@ -7,12 +7,8 @@ describe CachesController do
     end
 
     before do
-      controller.stub(:author => author)
+      FactoryGirl.create(:user, :nickname => "test")
       request.stub(:user_agent => user_agent)
-    end
-
-    let(:author) do
-      mock
     end
 
     let(:user_agent) do
@@ -37,9 +33,9 @@ describe CachesController do
     end
 
     it "updates caches of changed files and entries list" do
-      Rails.cache.should_receive(:delete).exactly(4).times
-      author.should_receive(:entry).exactly(3).times
-      author.should_receive(:entries)
+      Rails.cache.should_receive(:delete).exactly(6)
+      User.any_instance.should_receive(:entry).exactly(3)
+      User.any_instance.should_receive(:entries).exactly(1)
       should be_ok
     end
 

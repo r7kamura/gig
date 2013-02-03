@@ -71,7 +71,9 @@ class User < ActiveRecord::Base
   end
 
   def update_entry(attributes)
-    create_entry(attributes)
+    create_entry(attributes).tap do |entry|
+      clear_cache(entry.filename)
+    end
   end
 
   def destroy_entry(entry_name)
@@ -84,6 +86,11 @@ class User < ActiveRecord::Base
 
   def to_param
     nickname
+  end
+
+  def clear_cache(filename)
+    Rails.cache.delete("#{nickname}/#{entries_path}/#{filename}")
+    Rails.cache.delete("#{nickname}/#{entries_path}")
   end
 
   private
