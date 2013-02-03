@@ -6,6 +6,11 @@
       i.icon-double-angle-left
       | back
 
+p.note
+  ' ( You can use
+  = link_to "Markdown", "http://daringfireball.net/projects/markdown/", :target => "_blank"
+  '  format )
+
 = form_for([@user, entry]) do |f|
   .name
     = f.text_field :name, :placeholder => "title"
