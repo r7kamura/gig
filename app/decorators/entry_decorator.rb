@@ -2,7 +2,11 @@ require "pathname"
 
 class EntryDecorator < AbstractDecorator
   def self.renderer
-    @renderer ||= Redcarpet::Markdown.new(Redcarpet::Render::HTML, :fenced_code_blocks => true)
+    @renderer ||= Redcarpet::Markdown.new(
+      Redcarpet::Render::HTML.new(:hard_wrap => true),
+      :autolink           => true,
+      :fenced_code_blocks => true
+    )
   end
 
   def edit_path

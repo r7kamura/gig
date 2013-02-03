@@ -44,7 +44,7 @@ class User < ActiveRecord::Base
           __send__("#{method_name}_without_cache", *args)
         end
       end
-      alias_method_chain method_name, :cache #unless Rails.env.development?
+      alias_method_chain method_name, :cache
     end
   end
 
