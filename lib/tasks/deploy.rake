@@ -2,23 +2,12 @@ define_method(:`) {|command| puts "$ #{command}" } if ENV["DRYRUN"]
 
 desc "Deploy application to production server"
 task :deploy => %w[
-  deploy:precompile
   deploy:push
   deploy:migrate
   deploy:tag
 ]
 
 namespace :deploy do
-  desc "Compile assets and git commit public/assets"
-  task :precompile do
-    puts
-    puts "Compile assets to public/assets/"
-    puts `RAILS_ENV=production rake assets:precompile`
-    puts `git reset`
-    puts `git add public/assets`
-    puts `git commit -m "Update public/assets/"`
-  end
-
   desc "Push code to production server"
   task :push do
     puts
