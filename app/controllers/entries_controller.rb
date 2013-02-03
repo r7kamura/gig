@@ -10,7 +10,7 @@ class EntriesController < ApplicationController
 
   def create
     entry = current_user.create_entry(params[:entry])
-    redirect_to user_entry_path(current_, entry)
+    redirect_to user_entry_path(current_user, entry)
   end
 
   def update
