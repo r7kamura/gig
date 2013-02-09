@@ -24,4 +24,45 @@ describe ApplicationHelper do
       should == '<body class="foo_controller bar_action"></body>'
     end
   end
+
+  describe "#title_tag" do
+    subject do
+      helper.title_tag
+    end
+
+    before do
+      assign(:entry, entry)
+    end
+
+    let(:entry) do
+      mock(:name => name)
+    end
+
+    context "when @entry.name is present" do
+      let(:name) do
+        "name"
+      end
+      it "returns title tag with entry name and site name" do
+        should == "<title>name - GIG</title>"
+      end
+    end
+
+    context "when @entry.name is blank" do
+      let(:name) do
+        nil
+      end
+      it "returns title tag with site name" do
+        should == "<title>GIG</title>"
+      end
+    end
+
+    context "when @entry is blank" do
+      let(:entry) do
+        nil
+      end
+      it "returns title tag with site name" do
+        should == "<title>GIG</title>"
+      end
+    end
+  end
 end

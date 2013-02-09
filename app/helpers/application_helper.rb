@@ -9,6 +9,16 @@ module ApplicationHelper
     end
   end
 
+  def title_tag
+    content_tag(:title) do
+      if @entry.try(:name).present?
+        "#{@entry.name} - GIG"
+      else
+        "GIG"
+      end
+    end
+  end
+
   class AbstractDecorator < SimpleDelegator
     include Rails.application.routes.url_helpers
   end

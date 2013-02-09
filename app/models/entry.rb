@@ -69,10 +69,7 @@ class Entry
   def name
     pathname.basename(".*").to_s.gsub(/^\..*/, "")
   end
-
-  def title
-    name
-  end
+  alias_method :title, :name
 
   def date
     time.localtime.to_date
