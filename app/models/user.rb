@@ -47,7 +47,7 @@ class User < ActiveRecord::Base
     #  cache_method(:entries, 1.day) { "entries" }
     def cache_method(method_name, expires_in, &cache_key)
       define_method("#{method_name}_with_cache") do |*args|
-        Rails.cache.fetch cache_key.call(self, *args), :expires_in => expires_in do
+        Rails.cache.fetch instance_exec(*args, &cache_key), :expires_in => expires_in do
           __send__("#{method_name}_without_cache", *args)
         end
       end
@@ -111,6 +111,6 @@ class User < ActiveRecord::Base
     )
   end
 
-  # cache_method(:entries, 1.day) {|user| "#{user.nickname}/#{Settings.github.entries_path}" }
-  cache_method(:entry, 1.day) {|user, filename| "#{user.nickname}/#{Settings.github.entries_path}/#{filename}" }
+  cache_method(:entries, 1.day) { "#{nickname}/#{entries_path}" }
+  cache_method(:entry, 1.day) {|filename| "#{nickname}/#{entries_path}/#{filename}" }
 end
