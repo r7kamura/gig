@@ -59,9 +59,13 @@
           background: #fafafa;
         }
 
+        ol,
         ul {
           margin-top: .5em;
-          margin-left: 1.2em;
+          margin-left: 1.5em;
+        }
+
+        ul {
           list-style: disc;
         }
       }
