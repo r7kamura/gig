@@ -19,7 +19,7 @@ namespace :deploy do
   task :migrate do
     puts
     puts "Migrate the database"
-    puts `heroku rake db:migrate`
+    puts `heroku run rake db:migrate`
   end
 
   desc "Mark a git tag to remember release version"
