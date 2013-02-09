@@ -20,6 +20,7 @@ html
             | GIG
       ul.links
         - if logged_in?
+          li.link= link_to_with_icon "home", current_user, :title => "Home", "data-placement" => "bottom"
           li.link= link_to_with_icon "pencil", new_user_entry_path(current_user), :title => "New", "data-placement" => "bottom"
           li.link= link_to_with_icon "signout", logout_path, :method => :delete, :title => "Logout", "data-placement" => "bottom"
         - else
