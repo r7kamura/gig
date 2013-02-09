@@ -74,22 +74,6 @@ class User < ActiveRecord::Base
     Entry.new_with_name attributes.merge(:nickname => nickname)
   end
 
-  def create_entry(attributes)
-    entry = Entry.new_with_name(attributes)
-    if entry.valid?
-      commit(entry)
-      entry.persisted!
-      entry
-    end
-  end
-
-  def update_entry(attributes)
-    if entry = create_entry(attributes)
-      clear_cache(entry.filename)
-      entry
-    end
-  end
-
   def destroy_entry(entry_name)
     github_client.delete("#{entries_path}/#{entry_name}")
   end

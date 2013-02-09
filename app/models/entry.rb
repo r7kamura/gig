@@ -18,6 +18,7 @@ class Entry
   def save
     if valid?
       user.commit(self)
+      user.clear_cache(self)
       persisted!
       self
     else
