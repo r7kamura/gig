@@ -6,7 +6,14 @@ class User < ActiveRecord::Base
   validates :nickname, :provider, :uid, :token, :presence => true
   validates :uid, :presence => true, :uniqueness => { :scope => :provider }
 
-  delegate :entries_path, :hook_url, :repository, :to => "Settings.github"
+  delegate(
+    :db_repository_name,
+    :db_repository_owner,
+    :entries_path,
+    :hook_url,
+    :repository,
+    :to => "Settings.github"
+  )
 
   scope :alphabetical, lambda { order("nickname DESC") }
 
@@ -81,7 +88,7 @@ class User < ActiveRecord::Base
   end
 
   def create_repository
-    github_client.fork("r7kamura", repository)
+    github_client.fork(db_repository_owner, db_repository_name, repository)
     github_client.hook(nickname, repository, hook_url)
   end
 
