@@ -70,16 +70,23 @@ class User < ActiveRecord::Base
     end
   end
 
+  def build_entry(attributes = {})
+    Entry.new_with_name attributes.merge(:nickname => nickname)
+  end
+
   def create_entry(attributes)
     entry = Entry.new_with_name(attributes)
-    commit(entry)
-    entry.persisted!
-    entry
+    if entry.valid?
+      commit(entry)
+      entry.persisted!
+      entry
+    end
   end
 
   def update_entry(attributes)
-    create_entry(attributes).tap do |entry|
+    if entry = create_entry(attributes)
       clear_cache(entry.filename)
+      entry
     end
   end
 

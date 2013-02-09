@@ -76,6 +76,8 @@
     }
   }
 
+  &.create_action,
+  &.update_action,
   &.new_action,
   &.edit_action {
     .main {

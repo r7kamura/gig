@@ -4,23 +4,30 @@ class EntriesController < ApplicationController
   before_filter :require_entry, :only => [:show, :edit, :update, :destroy]
 
   def new
-    @entry = Entry.new(:nickname => current_user.nickname)
+    @entry = current_user.build_entry
     render :edit
   end
 
   def create
-    entry = current_user.create_entry(params[:entry])
-    redirect_to user_entry_path(current_user, entry)
+    @entry = current_user.build_entry(params[:entry])
+    if @entry.save
+      redirect_to user_entry_path(current_user, @entry)
+    else
+      render :edit
+    end
   end
 
   def update
     if @entry.name == params[:entry][:name]
-      entry = current_user.update_entry(params[:entry])
-    else
       current_user.destroy_entry(@entry.filename)
-      entry = current_user.update_entry(params[:entry])
     end
-    redirect_to user_entry_path(current_user, entry)
+
+    entry = current_user.build_entry(params[:entry])
+    if entry.save
+      redirect_to user_entry_path(current_user, @entry)
+    else
+      render :edit
+    end
   end
 
   def destroy

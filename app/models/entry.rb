@@ -5,7 +5,9 @@ class Entry
   attr_reader :attributes
 
   def self.new_with_name(attributes)
-    attributes[:path] = "#{attributes.delete(:name)}.md"
+    if attributes[:name]
+      attributes[:path] = "#{attributes.delete(:name)}.md"
+    end
     new(attributes)
   end
 
@@ -13,10 +15,11 @@ class Entry
     @attributes = attributes
   end
 
-  def save(user)
+  def save
     if valid?
       user.commit(self)
-      @attributes[:persisted] = true
+      persisted!
+      self
     else
       false
     end
@@ -63,7 +66,7 @@ class Entry
   end
 
   def name
-    pathname.basename(".*").to_s
+    pathname.basename(".*").to_s.gsub(/^\..*/, "")
   end
 
   def title
