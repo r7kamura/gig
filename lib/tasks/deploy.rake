@@ -3,7 +3,6 @@ define_method(:`) {|command| puts "$ #{command}" } if ENV["DRYRUN"]
 desc "Deploy application to production server"
 task :deploy => %w[
   deploy:push
-  deploy:migrate
   deploy:tag
 ]
 
