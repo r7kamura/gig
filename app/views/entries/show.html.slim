@@ -8,9 +8,11 @@
 
 article
   .header
-    h1.title= entry.title
-    .date
-      i.icon-calendar
-      = entry.date
+    h1.title= link_to entry.title, [@user, entry]
+    .info
+      .date
+        i.icon-calendar
+        = entry.date
+      .star-container
 
   .content= entry.rendered_content

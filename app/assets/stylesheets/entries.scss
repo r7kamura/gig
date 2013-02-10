@@ -14,6 +14,21 @@
         margin-bottom: 40px;
       }
 
+      .info .date,
+      .info .star-container {
+        display: inline-block;
+        margin-right: .3em;
+      }
+
+      // !important is necessary because its style attributes include vertial-align
+      .hatena-star-add-button {
+        vertical-align: -2px !important;
+      }
+
+      .hatena-star-star {
+        vertical-align: 2px;
+      }
+
       .date {
         margin-left: .35em;
       }
