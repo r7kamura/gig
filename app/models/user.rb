@@ -102,6 +102,6 @@ class User < ActiveRecord::Base
     )
   end
 
-  cache_method(:entries, 1.day) { "#{nickname}/#{entries_path}" }
+  # cache_method(:entries, 1.day) { "#{nickname}/#{entries_path}" }
   cache_method(:entry, 1.day) {|filename| "#{nickname}/#{entries_path}/#{filename}" }
 end
