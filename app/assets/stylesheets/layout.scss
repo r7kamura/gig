@@ -23,6 +23,12 @@ header {
     .link {
       display: inline-block;
       margin-left: 1em;
+      .popover {
+        cursor: pointer; 
+        .popover-content {
+            font-size: 50%;
+        }
+      }
     }
   }
 }
