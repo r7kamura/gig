@@ -1,8 +1,13 @@
 ul.entries
-  - @user.entries.each do |entry|
-    li.entry
-      = link_to [@user, entry] do
-        .title
-          i.icon-file-alt
-          = entry.title
-        .date= entry.date
+  - entries = @user.entries
+  - if entries.empty?
+    p
+      | まだ記事がありません
+  - else
+    - entries.each do |entry|
+      li.entry
+        = link_to [@user, entry] do
+          .title
+            i.icon-file-alt
+            = entry.title
+          .date= entry.date
