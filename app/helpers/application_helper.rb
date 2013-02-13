@@ -19,6 +19,14 @@ module ApplicationHelper
     end
   end
 
+  def request_new_entry?
+      controller_name == "entries" && action_name == "new"
+  end
+
+  def show_welcome_message?
+      !request_new_entry? && @user && @user.entries.empty?
+  end
+
   class AbstractDecorator < SimpleDelegator
     include Rails.application.routes.url_helpers
   end
