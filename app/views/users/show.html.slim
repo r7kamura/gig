@@ -6,3 +6,6 @@ ul.entries
           i.icon-file-alt
           = entry.title
         .date= entry.date
+  - if @user.entries.empty?
+    p
+      | まだ記事がありません
