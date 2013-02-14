@@ -21,7 +21,11 @@ html
       ul.links
         - if logged_in?
           li.link= link_to_with_icon "home", current_user, :title => "Home", "data-placement" => "bottom"
-          li.link= link_to_with_icon "pencil", new_user_entry_path(current_user), :title => "New", "data-placement" => "bottom"
+          - if show_welcome_message?
+            li.link= link_to_with_icon "pencil", new_user_entry_path(current_user), :title => "New", 
+              :rel => "welcome-message", "data-content" => "記事はここから書けます。最初の記事を投稿してみましょう！", "data-placement" => "bottom"
+          - else  
+            li.link= link_to_with_icon "pencil", new_user_entry_path(current_user), :title => "New", "data-placement" => "bottom"
           li.link= link_to_with_icon "signout", logout_path, :method => :delete, :title => "Logout", "data-placement" => "bottom"
         - else
           li.link= link_to_with_icon "signin", login_path, :title => "Login", "data-placement" => "bottom"
