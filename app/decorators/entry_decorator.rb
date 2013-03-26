@@ -3,7 +3,7 @@ require "pathname"
 class EntryDecorator < AbstractDecorator
   def self.renderer
     @renderer ||= Redcarpet::Markdown.new(
-      Redcarpet::Render::HTML.new(:hard_wrap => true),
+      Redcarpet::Render::HTML.new(:hard_wrap => true, :filter_html => true),
       :autolink           => true,
       :fenced_code_blocks => true
     )
